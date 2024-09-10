@@ -1,0 +1,110 @@
+<app-header></app-header>
+<div class="flex justify-center mt-8">
+  <div class="bg-blue-100 rounded-lg p-8 w-full max-w-md">
+    <h2 class="text-2xl font-semibold text-center mb-6">
+      {{ isEditMode ? "Edit" : "Create" }} Leave Request
+    </h2>
+    <form
+      class="space-y-6"
+      [formGroup]="leaveRequestForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 mb-1"
+          for="employeeId"
+          >Employee:</label
+        >
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          id="employeeId"
+          formControlName="employeeId"
+        >
+          <option value="">Select an employee</option>
+          <option *ngFor="let employee of employees" [value]="employee.id">
+            {{ employee.firstName }} {{ employee.lastName }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 mb-1"
+          for="startDate"
+          >Start Date:</label
+        >
+        <input
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          type="date"
+          id="startDate"
+          formControlName="startDate"
+        />
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 mb-1"
+          for="endDate"
+          >End Date:</label
+        >
+        <input
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          type="date"
+          id="endDate"
+          formControlName="endDate"
+        />
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 mb-1"
+          for="leaveType"
+          >Leave Type:</label
+        >
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          id="leaveType"
+          formControlName="leaveType"
+        >
+          <option value="">Select leave type</option>
+          <option *ngFor="let type of leaveTypes" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="isEditMode">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="status"
+          >Status:</label
+        >
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          id="status"
+          formControlName="status"
+        >
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          [disabled]="leaveRequestForm.invalid"
+          [ngClass]="{
+            'opacity-50 cursor-not-allowed': leaveRequestForm.invalid
+          }"
+        >
+          {{ isEditMode ? "Update" : "Create" }} Leave Request
+        </button>
+        <a
+          [routerLink]="['/leave-request-list']"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

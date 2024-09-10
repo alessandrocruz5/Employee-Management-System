@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="flex justify-center m-14">
+  <table class="w-3/5">
+    <thead>
+      <tr class="bg-blue-900 text-white">
+        <th class="border-2 border-white p-2">First Name</th>
+        <th class="border-2 border-white p-2">Last Name</th>
+        <th class="border-2 border-white p-2">Email</th>
+        <th class="border-2 border-white p-2">Department</th>
+        <th class="border-2 border-white p-2">Actionn</th>
+      </tr>
+      @for(employee of employees; track employee.id) {
+      <tr class="border-2 bg-blue-200">
+        <th class="border-2 border-white p-2">{{ employee.firstName }}</th>
+        <th class="border-2 border-white p-2">{{ employee.lastName }}</th>
+        <th class="border-2 border-white p-2">{{ employee.email }}</th>
+        <th class="border-2 border-white p-2">
+          {{ employee.department?.name || "N/A" }}
+        </th>
+        <th class="border-2 border-white p-2">
+          <div class="flex gap-3 justify-center">
+            <button
+              class="rounded bg-green-400 px-2 py-1"
+              (click)="editEmployee(employee.id)"
+            >
+              Edit
+            </button>
+            <button
+              class="rounded bg-red-400 px-2 py-1"
+              (click)="deleteEmployee(employee.id)"
+            >
+              Delete
+            </button>
+          </div>
+        </th>
+      </tr>
+      }
+    </thead>
+  </table>
+</div>
+<div class="flex justify-center mt-4">
+  @for (page of [].constructor(totalPages); track $index) {
+  <button
+    (click)="onPageChange($index + 1)"
+    [class.bg-blue-500]="currPage === $index + 1"
+    class="mx-1 px-3 py-1 rounded"
+  >
+    {{ $index + 1 }}
+  </button>
+  }
+</div>
